@@ -64,6 +64,23 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.1'
+        extensions: mbstring, dom, fileinfo, mysql, gd, zip
+        coverage: none
+
+    - name: Install Composer Dependencies
+      run: composer install --prefer-dist --no-progress --no-suggest
+
+    - name: Ensure tightenco/ziggy is installed and publish assets
+      run: |
+        if ! composer show tightenco/ziggy >/dev/null 2>&1; then
+          composer require tightenco/ziggy --no-interaction --no-suggest
+        fi
+        php artisan vendor:publish --provider="Tightenco\\Ziggy\\ZiggyServiceProvider" --tag=ziggy --force || true
+    
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
