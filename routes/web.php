@@ -29,7 +29,26 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+    
+    // Students
+    Route::resource('students', App\Http\Controllers\StudentController::class);
+    
+    // Teachers
+    Route::resource('teachers', App\Http\Controllers\TeacherController::class);
+    
+    // Classes
+    Route::resource('classes', App\Http\Controllers\SchoolClassController::class);
+    
+    // Subjects
+    Route::resource('subjects', App\Http\Controllers\SubjectController::class);
+    
+    // Enrollments
+    Route::resource('enrollments', App\Http\Controllers\EnrollmentController::class);
+    
+    // Grades
+    Route::resource('grades', App\Http\Controllers\GradeController::class);
+    
+    // Attendances
+    Route::resource('attendances', App\Http\Controllers\AttendanceController::class);
 });

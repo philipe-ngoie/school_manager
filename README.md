@@ -1,66 +1,317 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# School Management System - Système de Gestion Scolaire
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Application complète de gestion scolaire développée avec Laravel 10, Jetstream (Inertia + React), et Tailwind CSS.
 
-## About Laravel
+## 🎯 Fonctionnalités
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **Gestion des étudiants** : Inscription, profils, historique académique
+- **Gestion des enseignants** : Profils, spécialisations, classes assignées
+- **Gestion des classes** : Organisation par niveau et section
+- **Gestion des matières** : Codes de cours, crédits, descriptions
+- **Inscriptions** : Inscription des étudiants aux matières
+- **Notes** : Suivi des évaluations (examens, devoirs, projets)
+- **Présences** : Suivi quotidien de la présence des étudiants
+- **Tableau de bord** : Statistiques et vue d'ensemble
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🛠 Stack Technique
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Backend** : Laravel 10 (PHP 8.1+)
+- **Frontend** : React 18 avec Inertia.js
+- **Styling** : Tailwind CSS
+- **Authentification** : Laravel Jetstream
+- **Base de données** : MySQL 8.0
+- **Cache** : Redis
+- **Conteneurisation** : Docker & Docker Compose
 
-## Learning Laravel
+## 📋 Prérequis
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- Docker & Docker Compose installés sur votre machine
+- Git
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## 🚀 Installation
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 1. Cloner le dépôt
 
-## Laravel Sponsors
+```bash
+git clone https://github.com/philipe-ngoie/school_manager.git
+cd school_manager
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 2. Copier le fichier d'environnement
 
-### Premium Partners
+```bash
+cp .env.example .env
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### 3. Démarrer les conteneurs Docker
 
-## Contributing
+```bash
+docker-compose up -d
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 4. Installer les dépendances
 
-## Code of Conduct
+```bash
+# Dépendances PHP
+docker-compose exec app composer install
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# Dépendances Node.js
+docker-compose exec app npm install
+```
 
-## Security Vulnerabilities
+### 5. Générer la clé d'application
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+docker-compose exec app php artisan key:generate
+```
 
-## License
+### 6. Exécuter les migrations et les seeders
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+docker-compose exec app php artisan migrate --seed
+```
+
+Cela va créer:
+- 1 école de démonstration
+- 20 enseignants
+- 10 classes
+- 15 matières
+- 100 étudiants (10 par classe)
+- Inscriptions aux matières
+- Notes et présences
+
+### 7. Compiler les assets
+
+```bash
+# En mode développement avec hot reload
+docker-compose exec app npm run dev
+
+# Ou en mode production
+docker-compose exec app npm run build
+```
+
+### 8. Accéder à l'application
+
+Ouvrez votre navigateur et accédez à : **http://localhost:8080**
+
+## 🔐 Connexion
+
+Pour vous connecter, vous devez d'abord créer un compte utilisateur :
+
+```bash
+docker-compose exec app php artisan tinker
+```
+
+Puis dans le terminal Tinker :
+
+```php
+User::create([
+    'name' => 'Admin',
+    'email' => 'admin@school.com',
+    'password' => bcrypt('password'),
+]);
+exit
+```
+
+Connectez-vous avec :
+- **Email** : admin@school.com
+- **Mot de passe** : password
+
+## 📦 Structure du Projet
+
+```
+school_manager/
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/         # Contrôleurs web
+│   │   │   └── Api/            # Contrôleurs API
+│   │   └── Resources/          # Ressources API
+│   └── Models/                 # Modèles Eloquent
+├── database/
+│   ├── factories/              # Factories pour les tests
+│   ├── migrations/             # Migrations de base de données
+│   └── seeders/                # Seeders
+├── docker/                     # Configuration Docker
+│   ├── nginx/                  # Configuration Nginx
+│   ├── php/                    # Configuration PHP
+│   └── mysql/                  # Configuration MySQL
+├── resources/
+│   ├── js/
+│   │   ├── Components/         # Composants React réutilisables
+│   │   ├── Layouts/            # Layouts React
+│   │   └── Pages/              # Pages Inertia React
+│   └── css/                    # Styles CSS/Tailwind
+├── routes/
+│   ├── web.php                 # Routes web
+│   └── api.php                 # Routes API
+├── docker-compose.yml          # Configuration Docker Compose
+├── Dockerfile                  # Dockerfile de l'application
+└── Makefile                    # Commandes make utiles
+```
+
+## 🐳 Commandes Docker utiles
+
+### Utilisation du Makefile
+
+```bash
+make help           # Afficher l'aide
+make start          # Démarrer les conteneurs
+make stop           # Arrêter les conteneurs
+make restart        # Redémarrer les conteneurs
+make install        # Installer les dépendances
+make migrate        # Exécuter les migrations
+make seed           # Exécuter les seeders
+make fresh          # Migration fresh avec seeders
+make test           # Exécuter les tests
+make bash           # Accéder au bash du conteneur
+make logs           # Afficher les logs
+```
+
+### Commandes Artisan
+
+```bash
+# Utiliser make
+make artisan cmd="route:list"
+
+# Ou directement avec docker-compose
+docker-compose exec app php artisan migrate
+docker-compose exec app php artisan db:seed
+docker-compose exec app php artisan route:list
+docker-compose exec app php artisan tinker
+```
+
+### Commandes NPM
+
+```bash
+# Utiliser make
+make npm cmd="run dev"
+
+# Ou directement avec docker-compose
+docker-compose exec app npm run dev
+docker-compose exec app npm run build
+```
+
+## 🗄 Schéma de Base de Données
+
+### Tables principales
+
+- **schools** : Informations sur l'école
+- **teachers** : Enseignants (nom, email, spécialisation, salaire)
+- **school_classes** : Classes (niveau, section, enseignant, capacité)
+- **subjects** : Matières (code, nom, crédits)
+- **students** : Étudiants (nom, email, classe, informations parents)
+- **enrollments** : Inscriptions étudiants-matières
+- **grades** : Notes et évaluations
+- **attendances** : Présences quotidiennes
+
+### Relations
+
+- Un enseignant peut avoir plusieurs classes
+- Une classe appartient à un enseignant
+- Une classe a plusieurs étudiants
+- Un étudiant appartient à une classe
+- Un étudiant peut s'inscrire à plusieurs matières
+- Une matière peut avoir plusieurs étudiants inscrits
+- Un étudiant a plusieurs notes
+- Un étudiant a plusieurs enregistrements de présence
+
+## 🧪 Tests
+
+Exécuter les tests PHPUnit :
+
+```bash
+docker-compose exec app php artisan test
+```
+
+## 🔌 API REST
+
+L'application expose une API REST complète pour toutes les ressources :
+
+### Endpoints disponibles
+
+```
+GET    /api/students          # Liste des étudiants
+POST   /api/students          # Créer un étudiant
+GET    /api/students/{id}     # Détails d'un étudiant
+PUT    /api/students/{id}     # Mettre à jour un étudiant
+DELETE /api/students/{id}     # Supprimer un étudiant
+```
+
+Les mêmes endpoints sont disponibles pour :
+- `/api/teachers`
+- `/api/classes`
+- `/api/subjects`
+- `/api/enrollments`
+- `/api/grades`
+- `/api/attendances`
+
+### Authentification API
+
+L'API utilise Laravel Sanctum pour l'authentification. Incluez le token dans l'en-tête :
+
+```
+Authorization: Bearer {token}
+```
+
+## 📝 Notes importantes
+
+### Jetstream
+
+Ce projet utilise Laravel Jetstream avec la stack Inertia + React. Jetstream fournit :
+- Authentification (login, registration, password reset)
+- Gestion des profils utilisateurs
+- Authentification à deux facteurs (2FA)
+- Gestion des sessions
+- API tokens
+
+### Tailwind CSS
+
+L'interface utilise Tailwind CSS avec le mode dark activé. Pour personnaliser les styles, modifiez `tailwind.config.js`.
+
+### Vite
+
+Le projet utilise Vite pour le bundling des assets. Configuration dans `vite.config.js`.
+
+## 🐛 Dépannage
+
+### Les conteneurs ne démarrent pas
+
+```bash
+docker-compose down
+docker-compose up -d --build
+```
+
+### Erreur de permission
+
+```bash
+docker-compose exec app chown -R www-data:www-data storage bootstrap/cache
+docker-compose exec app chmod -R 775 storage bootstrap/cache
+```
+
+### Base de données vide
+
+```bash
+docker-compose exec app php artisan migrate:fresh --seed
+```
+
+### Assets non compilés
+
+```bash
+docker-compose exec app npm run build
+```
+
+## 🤝 Contribution
+
+Les contributions sont les bienvenues ! N'hésitez pas à ouvrir une issue ou une pull request.
+
+## 📄 Licence
+
+Ce projet est open source et disponible sous la [licence MIT](https://opensource.org/licenses/MIT).
+
+## 👨‍💻 Auteur
+
+Développé par **philipe-ngoie**
+
+## 📞 Support
+
+Pour toute question ou problème, ouvrez une issue sur GitHub.
